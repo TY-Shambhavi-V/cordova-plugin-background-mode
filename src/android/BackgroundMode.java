@@ -68,12 +68,14 @@ public class BackgroundMode extends CordovaPlugin {
         {
             ForegroundBinder binder = (ForegroundBinder) service;
             BackgroundMode.this.service = binder.getService();
+            isBind = true;
         }
 
         @Override
         public void onServiceDisconnected (ComponentName name)
         {
             fireEvent(Event.FAILURE, "'service disconnected'");
+            isBind = false;
         }
     };
 
@@ -249,7 +251,7 @@ public class BackgroundMode extends CordovaPlugin {
             fireEvent(Event.FAILURE, String.format("'%s'", e.getMessage()));
         }
 
-        isBind = true;
+        // isBind = true;
     }
 
     /**
@@ -267,7 +269,7 @@ public class BackgroundMode extends CordovaPlugin {
         context.unbindService(connection);
         context.stopService(intent);
 
-        isBind = false;
+        // isBind = false;
     }
 
     /**
